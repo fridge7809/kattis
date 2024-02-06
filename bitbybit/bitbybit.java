@@ -61,7 +61,7 @@ public class bitbybit {
 			}
 		}
 		for (int i = 0; i < bitbybit.bitArr.length; i++) {
-			System.out.println(bitbybit.bitArr[i]);
+			System.out.print(bitbybit.bitArr[i]);
 		}
 	}
 }
