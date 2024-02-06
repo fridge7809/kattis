@@ -16,6 +16,12 @@ public class UF {
 		}
 	}
 
+	public void printArr() {
+		for (int i = 0; i < id.length; i++) {
+			System.out.println("|"+i+"|"+id[i]+"\n");
+		}
+	}
+
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		int N = scanner.nextInt();
@@ -86,8 +92,10 @@ public class UF {
 			return;
 		}
 
+		//printArr();
 		// Set ny root reference på elementet
 		id[s] = j;
+		//printArr();
 
 
 

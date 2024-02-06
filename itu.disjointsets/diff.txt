@@ -1,0 +1,14 @@
+*** isleaf.out	Tue Feb  6 20:52:47 2024
+--- isleaf.ans	Tue Feb  6 20:42:28 2024
+***************
+*** 1,4 ****
+  1
+  0
+- 0
+  1
+--- 1,4 ----
+  1
+  0
+  1
++ 0
+\ No newline at end of file
