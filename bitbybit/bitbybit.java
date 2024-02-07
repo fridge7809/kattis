@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class bitbybit {
@@ -25,43 +25,85 @@ public class bitbybit {
 		if (bitArr[p] == '1' && bitArr[q] == '1') {
 			bitArr[p] = '1';
 		}
+		if (bitArr[p] == '0' && bitArr[q] == '0') {
+			bitArr[p] = '0';
+		}
+		if (bitArr[p] == '?' && bitArr[q] == '?') {
+			bitArr[p] = '?';
+		}
+
 	}
 
 	public void or(int p, int q) {
 		if (bitArr[p] == '1' || bitArr[q] == '1') {
 			bitArr[p] = '1';
 		}
+		if (bitArr[p] == '0' || bitArr[q] == '0') {
+			bitArr[p] = '0';
+		}
+		if (bitArr[p] == '?' || bitArr[q] == '?') {
+			bitArr[p] = '?';
+		}
+	}
+
+	private void print() {
+		for (int i = 0; i < bitArr.length; i++) {
+			System.out.print(bitArr[i]);
+		}
+		System.out.print("\n");
+	}
+
+	public void reverse() {
+		int k = bitArr.length;
+		char[] temp = new char[k];
+		for (int i = 0; i < bitArr.length; i++) {
+			temp[k - 1] = bitArr[i];
+			k -= 1;
+		}
+		bitArr = temp;
 	}
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		List<String> instructions = new ArrayList<>();
 		bitbybit bitbybit = new bitbybit(32);
 
-		while (scanner.hasNextLine()) {
-			instructions.add(scanner.nextLine());
-		}
-		for (String op : instructions) {
-			if (op.length() > 1) {
-				String[] arr = op.split(" ");
-				if (arr.length == 2) {
-					if (arr[0].equals("AND")) {
-						bitbybit.and(Integer.valueOf(arr[1]), Integer.valueOf(arr[2]));
-					}
-					if (arr[0].equals("OR")) {
-						bitbybit.or(Integer.valueOf(arr[1]), Integer.valueOf(arr[2]));
-					}
-				}
-				if (arr[0].equals("SET")) {
-					bitbybit.set(Integer.valueOf(arr[1]));
-				}
-				if (arr[0].equals("CLEAR")) {
-					bitbybit.clear(Integer.valueOf(arr[1]));
-				}
+		int ops = 0;
+		while (scanner.hasNextInt()) {
+			ops = scanner.nextInt();
+			if (ops == 0) {
+				break;
 			}
-		}
-		for (int i = 0; i < bitbybit.bitArr.length; i++) {
-			System.out.print(bitbybit.bitArr[i]);
+			scanner.nextLine();
+			while (ops > 0) {
+				String line = scanner.nextLine();
+				String[] arr = line.split(" ");
+				String operation = arr[0];
+				int first = Integer.parseInt(arr[1]);
+
+				if (arr.length == 3) {
+					int second = Integer.parseInt(arr[2]);
+					if (operation.equals("AND")) {
+						bitbybit.and(first, second);
+					}
+					if (operation.equals("OR")) {
+						bitbybit.or(first, second);
+					}
+				}
+
+				if (operation.equals("SET")) {
+					bitbybit.set(first);
+				}
+				if (operation.equals("CLEAR")) {
+					bitbybit.clear(first);
+				}
+
+				ops--;
+			}
+			bitbybit.reverse();
+			bitbybit.print();
+			bitbybit.reverse();
 		}
 	}
+
+
 }
