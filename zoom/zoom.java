@@ -6,18 +6,15 @@ public class zoom {
 		int n = scanner.nextInt();
 		int k = scanner.nextInt();
 		int j = 0;
-		int spaces = n / k;
-		int[] arr = new int[spaces];
+		int[] arr = new int[n / k];
 		int collected = 0;
 		while (j < n) {
-			int idx = j + 1;
 			int current = scanner.nextInt();
-			if (idx % k != 0) {
+			if ((j + 1) % k != 0) {
 				j++;
 				continue;
 			}
-			arr[collected] = current;
-			collected++;
+			arr[collected++] = current;
 			j++;
 		}
 		for (int p = 0; p < arr.length; p++) {
