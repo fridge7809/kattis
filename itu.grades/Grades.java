@@ -10,38 +10,59 @@ public class Grades {
         grades = new Grade[N];
     }
 
-    private record Grade(String studentName, String grade, int modifier) implements Comparable<Grade> {
+    private static class Grade implements Comparable<Grade> {
+        private final String studentName;
+        private final String grade;
+        private final int modifier;
+
+        public Grade(String studentName, String grade, int modifier) {
+            this.studentName = studentName;
+            this.grade = grade;
+            this.modifier = modifier;
+        }
+
+        public String getStudentName() {
+            return studentName;
+        }
+
+        public String getGrade() {
+            return grade;
+        }
+
+        public int getModifier() {
+            return modifier;
+        }
 
         @Override
         public int compareTo(Grade that) {
-            return Comparator.comparing(Grade::grade, new StringComparator())
-                    .thenComparing(Grade::modifier, Comparator.reverseOrder())
-                    .thenComparing(Grade::studentName)
+            return Comparator.comparing(Grade::getGrade, new StringComparator())
+                    .thenComparing(Grade::getModifier, Comparator.reverseOrder())
+                    .thenComparing(Grade::getStudentName)
                     .compare(this, that);
         }
+    }
 
-        private static class StringComparator implements Comparator<String> {
-            private final Map<String, Integer> order = Map.of(
-                    "A", 0,
-                    "B", 1,
-                    "C", 2,
-                    "D", 3,
-                    "E", 4,
-                    "FX", 5,
-                    "F", 6);
+    private static class StringComparator implements Comparator<String> {
+        private final Map<String, Integer> order = Map.of(
+                "A", 0,
+                "B", 1,
+                "C", 2,
+                "D", 3,
+                "E", 4,
+                "FX", 5,
+                "F", 6);
 
-            @Override
-            public int compare(String s1, String s2) {
-                int index1 = order.get(s1);
-                int index2 = order.get(s2);
-                return Integer.compare(index1, index2);
-            }
+        @Override
+        public int compare(String s1, String s2) {
+            int index1 = order.get(s1);
+            int index2 = order.get(s2);
+            return Integer.compare(index1, index2);
         }
     }
 
     public void print() {
         for (int i = 0; i < grades.length; i++) {
-            System.out.println(grades[i].studentName());
+            System.out.println(grades[i].getStudentName());
         }
     }
 
@@ -68,7 +89,7 @@ public class Grades {
                     }
                 }
             }
-            grades.grades[i] = new Grades.Grade(tokens[0], grade, modifierValue);
+            grades.grades[i] = new Grade(tokens[0], grade, modifierValue);
         }
         Mergesort.sort(grades.grades);
         grades.print();
