@@ -15,7 +15,7 @@ public class Party implements Comparable<Party> {
     }
 
     public double quotient() {
-        return votesCount / (seatsAllocated + 1);
+        return (double) votesCount / (double) (seatsAllocated + 1);
     }
 
     public void allocateSeat() {

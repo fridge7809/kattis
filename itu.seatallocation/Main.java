@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import edu.princeton.cs.algs4.MaxPQ;
 
@@ -10,10 +12,13 @@ public class Main {
         int m = scanner.nextInt();
         scanner.nextLine();
 
+        Party[] parties = new Party[n];
         MaxPQ<Party> pq = new MaxPQ<Party>(n);
 
         for (int i = 0; i < n; i++) {
-            pq.insert(new Party(Integer.valueOf(scanner.nextLine()), i));
+            Party item = new Party(Integer.valueOf(scanner.nextLine()), i);
+            parties[i] = item;
+            pq.insert(item);
         }
 
         for (int i = 0; i < m; i++) {
@@ -22,9 +27,8 @@ public class Main {
             pq.insert(party);
         }
 
-        for (Party party : pq) {
-            System.out.println(party.getSeatsAllocated());
+        for (int i = 0; i < n; i++) {
+            System.out.println(parties[i].getSeatsAllocated());
         }
-
     }
 }
