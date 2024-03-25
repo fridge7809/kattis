@@ -22,17 +22,18 @@ public class Harmony {
             edges.push(new Edge(u, v, c));
         }
 
-        Bipartite bipartite = new Bipartite(graph);
+        BipartiteBfs bfs = new BipartiteBfs(graph);
 
-        if (!bipartite.isBipartite()) {
+        if (!bfs.isBipartite()) {
             System.out.println(0);
+            scanner.close();
             return;
         }
 
         boolean flag = true;
         for (Edge e : edges) {
-            boolean color1 = bipartite.color(e.either());
-            boolean color2 = bipartite.color(e.other(e.either()));
+            boolean color1 = bfs.color(e.either());
+            boolean color2 = bfs.color(e.other(e.either()));
             if (e.weight() == 0) {
                 flag = (color1 == color2);
                 if (!flag) {
@@ -43,6 +44,7 @@ public class Harmony {
         }
 
         System.out.println(flag ? 1 : 0);
+        scanner.close();
     }
 
 }
